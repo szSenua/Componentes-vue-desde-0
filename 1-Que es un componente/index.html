@@ -10,22 +10,38 @@
 
 <body>
     <div id="app">
-        <!-- <gato></gato>-->
+        <gato></gato>
+        <gato></gato>
+        <gato></gato>
+        <gato></gato>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script src="https://unpkg.com/vue@next"></script>
     <script>
 
         //Los componentes son instancias Vue reutilizables, permiten encapsular y agrupar funcionalidad
         //de cualquier tipo.
         //los componentes no se anclan al DOM, pero sí que tienen templates.
-        Vue.component('gato', {
 
-        }) 
-            new Vue ({
-            el: '#app',
-        })
+        const app = Vue.createApp({}); //instancia vue
 
-        Vue.config.devtools = true;
+        app.component('gato', { //definimos el componente gato
+            template: `<img :src="urlCompleta" />`,
+      //modelo del componente -> función que retorna un objeto
+      data() {
+        return {
+            ancho: Math.floor(Math.random() * 600) + 100, //máximo 600px, mínimo 100
+            alto: Math.floor(Math.random() * 600) + 100 //máximo 600px, mínimo 100
+        }
+      },
+      computed: {
+        urlCompleta() {
+            return `https://placekitten.com/${this.ancho}/${this.alto}`
+        }
+      }
+        });
+
+        app.mount('#app') //montamos la isntancia
     </script>
 </body>
 
