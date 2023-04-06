@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue</title>
+    <style>
+        .boton {
+            background-color: purple;
+            color: white;
+            padding: 10px 30px;
+            display: block;
+            border-radius: 0 0 10px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 1px goldenrod;
+            font-family: sans-serif;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--<boton color="blue" enlace="https://victorroman.es" anchor-text="Victor blog"></boton>
+        <boton color="purple" enlace="https://github.com/szSenua" anchor-text="szSenua"></boton>
+        <boton color="green" enlace="https://www.escuelavue.es" anchor-text="Escuela Vue"></boton>
+        <boton color="black" anchor-text="Otro enlace"></boton>-->
+
+        <!--Versión que va a repetirse por cada uno de los enlaces de la matriz botones-->
+
+        <boton v-for="boton in botones" :color="boton.color" :enlace="boton.enlace" :anchor-text="boton.anchorText" />
+
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    botones: [
+                        { enlace: "http://www.wmedia.es", anchorText: "Wmedia", color: "red" },
+                        { enlace: "http://www.escuelavue.es", anchorText: "Escuela Vue", color: "blue" },
+                        { enlace: "http://www.vuejs.org", anchorText: "Vue.js", color: "purple" },
+                    ]
+                }
+            },
+        });
+
+        app.component('boton', {
+            props: {
+                color: String,
+                enlace: {
+                    type: String,
+                    default: 'https://www.escuelavue.es'
+                },
+                anchorText: String
+            },
+            template: `<a class="boton" :style="'background-color:' + color" :href="enlace">{{  anchorText }}</a>`
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
